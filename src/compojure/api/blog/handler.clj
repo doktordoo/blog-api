@@ -2,6 +2,7 @@
   (:require [compojure.api.sweet :refer :all]
             [ring.util.http-response :refer :all]
             [compojure.api.blog.domain :refer :all]
+            [clojure.tools.logging :as log]
             [schema.core :as s]))
 
 (def app
@@ -18,7 +19,7 @@
                 
       (GET "/" []
             :return [Post]
-            :summary "Gets all blog Posts"
+            :summary "Gets all blog Posts"           
             (ok (get-posts)))
         
       (POST "/" []
@@ -36,11 +37,11 @@
       (GET "/:id" []
             :return Post
             :path-params [id :- Long]
-            :summary "Creates a new blog post entry. Returns the created blog post with the ID"
+            :summary "Fetches a single blog post with the given ID."
             (ok (get-post id)))
         
       (DELETE "/:id" []
             :path-params [id :- Long]
-            :summary "Deletes a single blog post with the given ID. Returns the post"
+            :summary "Deletes a single blog post with the given ID. Returns the post? NO"
             (ok (delete! id)))
         )))
